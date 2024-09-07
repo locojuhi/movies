@@ -4,6 +4,7 @@ import 'package:movies/presentation/providers/movies/movies_providers.dart';
 import 'package:movies/presentation/providers/movies/movies_slideshow_provider.dart';
 import 'package:movies/presentation/widgets/custom_appbar.dart';
 import 'package:movies/presentation/widgets/custon_bottom_navigation.dart';
+import 'package:movies/presentation/widgets/movie_horizontal_listview.dart';
 import 'package:movies/presentation/widgets/movies_slideshow.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -46,6 +47,11 @@ class _HomeViewState extends ConsumerState<_HomeView> {
       children: [
         const CustomAppbar(),
         MoviesSlideshow(movies: nowPlayingMoviesSlideshow),
+        MovieHorizontalListview(
+          movies: nowPlayingMoviesSlideshow,
+          title: 'In theaters',
+          subtitle: 'Sat 07',
+        ),
         Expanded(
           child: ListView.builder(
             itemCount: nowPlayingMoviesSlideshow.length,
