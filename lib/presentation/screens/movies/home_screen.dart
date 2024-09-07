@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:movies/presentation/providers/movies/movies_providers.dart';
 import 'package:movies/presentation/providers/movies/movies_slideshow_provider.dart';
 import 'package:movies/presentation/widgets/custom_appbar.dart';
+import 'package:movies/presentation/widgets/custon_bottom_navigation.dart';
 import 'package:movies/presentation/widgets/movies_slideshow.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -17,6 +18,7 @@ class HomeScreen extends StatelessWidget {
       body: Center(
         child: _HomeView(),
       ),
+      bottomNavigationBar: CustonBottomNavigation(),
     );
   }
 }
