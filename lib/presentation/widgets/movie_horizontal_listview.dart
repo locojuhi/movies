@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movies/config/helpers/human_formats.dart';
 import 'package:movies/domain/entities/movie.dart';
 
 class MovieHorizontalListview extends StatelessWidget {
@@ -122,26 +123,29 @@ class _Slide extends StatelessWidget {
               style: textStyles.titleSmall,
             ),
           ),
-          Spacer(),
-          Row(
-            children: [
-              Icon(
-                Icons.star_half_outlined,
-                color: Colors.yellow.shade800,
-              ),
-              const SizedBox(width: 3),
-              Text(
-                '${movie.voteAverage}',
-                style: textStyles.bodyMedium?.copyWith(
+          const Spacer(),
+          SizedBox(
+            width: 150,
+            child: Row(
+              children: [
+                Icon(
+                  Icons.star_half_outlined,
                   color: Colors.yellow.shade800,
                 ),
-              ),
-              const SizedBox(width: 10),
-              Text(
-                '${movie.popularity}',
-                style: textStyles.bodySmall,
-              ),
-            ],
+                const SizedBox(width: 3),
+                Text(
+                  '${movie.voteAverage}',
+                  style: textStyles.bodyMedium?.copyWith(
+                    color: Colors.yellow.shade800,
+                  ),
+                ),
+                const Spacer(),
+                Text(
+                  HumanFormats.number(movie.popularity),
+                  style: textStyles.bodySmall,
+                ),
+              ],
+            ),
           )
         ],
       ),
