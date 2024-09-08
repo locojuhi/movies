@@ -12,7 +12,8 @@ class TheMovieDBDatasource extends MoviesDatasource {
       headers: {'Authorization': Environment.theMovieDBAccessKey}));
   @override
   Future<List<Movie>> getNowPlaying({int page = 1}) async {
-    final response = await dio.get('/movie/now_playing');
+    final response =
+        await dio.get('/movie/now_playing', queryParameters: {'page': page});
     final moviDBResponse = MovieDbResponse.fromJson(response.data);
     final List<Movie> movies = moviDBResponse.results
         .map((moviedb) => MovieMapper.movieDBToEntity(moviedb))
