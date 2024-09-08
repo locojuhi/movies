@@ -14,14 +14,18 @@ typedef MovideCallback = Future<List<Movie>> Function({int page});
 
 class MoviesNotifier extends StateNotifier<List<Movie>> {
   int currentPage = 0;
+  bool isLoading = false;
   MovideCallback fetchMoreMovies;
 
   MoviesNotifier({required this.fetchMoreMovies}) : super([]);
 
   Future<void> loadNextPage() async {
+    if (isLoading) return;
+    isLoading = true;
     currentPage++;
     final List<Movie> movies = await fetchMoreMovies(page: currentPage);
 
     state = [...state, ...movies];
+    isLoading = false;
   }
 }
