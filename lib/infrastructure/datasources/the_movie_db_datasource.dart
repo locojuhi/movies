@@ -20,4 +20,15 @@ class TheMovieDBDatasource extends MoviesDatasource {
         .toList();
     return movies;
   }
+
+  @override
+  Future<List<Movie>> getPopular({int page = 1}) async {
+    final response =
+        await dio.get('/movie/popular', queryParameters: {'page': page});
+    final moviDBResponse = MovieDbResponse.fromJson(response.data);
+    final List<Movie> movies = moviDBResponse.results
+        .map((moviedb) => MovieMapper.movieDBToEntity(moviedb))
+        .toList();
+    return movies;
+  }
 }
