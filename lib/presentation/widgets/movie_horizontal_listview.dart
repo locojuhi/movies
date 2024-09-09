@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:movies/config/helpers/human_formats.dart';
 import 'package:movies/domain/entities/movie.dart';
 
@@ -137,8 +138,10 @@ class _Slide extends StatelessWidget {
                       strokeWidth: 2,
                     );
                   }
-
-                  return child;
+                  return GestureDetector(
+                    onTap: () => {context.push('/movie/${movie.id}')},
+                    child: child,
+                  );
                 },
               ),
             ),
