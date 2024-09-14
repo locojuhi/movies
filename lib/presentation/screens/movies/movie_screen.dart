@@ -38,9 +38,83 @@ class MovieScreenState extends ConsumerState<MovieScreen> {
         slivers: [
           _CustomSliverAppBar(
             movie: movie,
+          ),
+          SliverList(
+            delegate: SliverChildBuilderDelegate(
+              (context, index) => _MovieDetails(movie: movie),
+              childCount: 1,
+            ),
           )
         ],
       ),
+    );
+  }
+}
+
+class _MovieDetails extends StatelessWidget {
+  final Movie movie;
+  const _MovieDetails({super.key, required this.movie});
+
+  @override
+  Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    final textStyle = Theme.of(context).textTheme;
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: EdgeInsets.all(8),
+          child: Row(
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(20),
+                child: Image.network(
+                  movie.posterPath,
+                  width: size.width * 0.3,
+                ),
+              ),
+              const SizedBox(
+                width: 10,
+              ),
+              SizedBox(
+                width: (size.width - 40) * 0.7,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      movie.title,
+                      style: textStyle.titleLarge,
+                    ),
+                    Text(
+                      movie.overview,
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+
+        // TODO: Mostar actores ListView
+        const Placeholder(),
+        const SizedBox(height: 100),
+        Padding(
+          padding: const EdgeInsets.all(8),
+          child: Wrap(
+            children: [
+              ...movie.genreIds.map((gender) => Container(
+                    margin: const EdgeInsets.only(right: 10),
+                    child: Chip(
+                      label: Text(gender),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15)),
+                    ),
+                  ))
+            ],
+          ),
+        )
+      ],
     );
   }
 }
@@ -57,7 +131,6 @@ class _CustomSliverAppBar extends StatelessWidget {
       backgroundColor: Colors.black,
       expandedHeight: size.height * 0.7,
       foregroundColor: Colors.white,
-      title: Text(movie.title),
       flexibleSpace: FlexibleSpaceBar(
         titlePadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
         title: Text(
