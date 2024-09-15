@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:movies/config/helpers/human_formats.dart';
 import 'package:movies/domain/entities/movie.dart';
@@ -6,8 +8,16 @@ typedef SearchMovieCallback = Future<List<Movie>> Function(String query);
 
 class SearchMovieDelegate extends SearchDelegate<Movie?> {
   final SearchMovieCallback searchMovies;
+  StreamController<List<Movie>> debounceMovies = StreamController.broadcast();
 
   SearchMovieDelegate({required this.searchMovies});
+  Timer? _debounceTimer;
+
+  void _onQueryChange(String query) {
+    if (_debounceTimer?.isActive ?? false) _debounceTimer!.cancel();
+
+    _debounceTimer = Timer(const Duration(milliseconds: 500), () {});
+  }
 
   @override
   List<Widget>? buildActions(BuildContext context) {
@@ -32,8 +42,10 @@ class SearchMovieDelegate extends SearchDelegate<Movie?> {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    return FutureBuilder(
-      future: searchMovies(query),
+    _onQueryChange(query);
+
+    return StreamBuilder(
+      stream: debounceMovies.stream,
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         final movies = snapshot.data ?? <Movie>[];
 
