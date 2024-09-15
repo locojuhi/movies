@@ -55,7 +55,7 @@ class MovieScreenState extends ConsumerState<MovieScreen> {
 
 class _MovieDetails extends StatelessWidget {
   final Movie movie;
-  const _MovieDetails({super.key, required this.movie});
+  const _MovieDetails({required this.movie});
 
   @override
   Widget build(BuildContext context) {
@@ -97,7 +97,6 @@ class _MovieDetails extends StatelessWidget {
             ],
           ),
         ),
-
         const SizedBox(height: 5),
         Padding(
           padding: const EdgeInsets.all(8),
@@ -114,7 +113,6 @@ class _MovieDetails extends StatelessWidget {
             ],
           ),
         ),
-        // TODO: Mostar actores ListView
         _ActorsByMovie(movie.id.toString()),
       ],
     );
@@ -185,7 +183,7 @@ class _ActorsByMovie extends ConsumerWidget {
 class _CustomSliverAppBar extends StatelessWidget {
   final Movie movie;
 
-  const _CustomSliverAppBar({super.key, required this.movie});
+  const _CustomSliverAppBar({required this.movie});
 
   @override
   Widget build(BuildContext context) {
@@ -208,7 +206,7 @@ class _CustomSliverAppBar extends StatelessWidget {
                 movie.posterPath,
                 fit: BoxFit.cover,
                 loadingBuilder: (context, child, loadingProgress) {
-                  if (loadingProgress != null) return SizedBox();
+                  if (loadingProgress != null) return const SizedBox();
                   return child;
                 },
               ),
