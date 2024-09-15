@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:movies/domain/entities/movie.dart';
+import 'package:movies/presentation/providers/actors/actors_by_movie_provider.dart';
 import 'package:movies/presentation/providers/movies/movie_info_provider.dart';
 
 class MovieScreen extends ConsumerStatefulWidget {
@@ -21,6 +22,7 @@ class MovieScreenState extends ConsumerState<MovieScreen> {
   void initState() {
     super.initState();
     ref.read(movieInfoProvider.notifier).loadMovie(widget.movieId);
+    ref.read(actorsByMovieProvider.notifier).loadActors(widget.movieId);
   }
 
   @override
