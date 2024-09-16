@@ -13,22 +13,23 @@ final appRouter = GoRouter(
       },
       routes: [
         GoRoute(
-            path: '/',
-            builder: (context, state) {
-              return const HomeView();
-            },
-            routes: [
-              GoRoute(
-                path: MovieScreen.routePath,
-                name: MovieScreen.routeName,
-                builder: (context, state) {
-                  final movieId = state.pathParameters['id'] ?? 'no_id';
-                  return MovieScreen(
-                    movieId: movieId,
-                  );
-                },
-              ),
-            ]),
+          path: '/',
+          builder: (context, state) {
+            return const HomeView();
+          },
+          routes: [
+            GoRoute(
+              path: MovieScreen.routePath,
+              name: MovieScreen.routeName,
+              builder: (context, state) {
+                final movieId = state.pathParameters['id'] ?? 'no_id';
+                return MovieScreen(
+                  movieId: movieId,
+                );
+              },
+            ),
+          ],
+        ),
         GoRoute(
           path: '/favorites',
           builder: (context, state) {
@@ -37,6 +38,7 @@ final appRouter = GoRouter(
         ),
       ],
     ),
+
     // GoRoute(
     //     path: HomeScreen.routePath,
     //     name: HomeScreen.name,
