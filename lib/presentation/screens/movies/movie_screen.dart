@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:movies/domain/entities/movie.dart';
 import 'package:movies/presentation/providers/actors/actors_by_movie_provider.dart';
 import 'package:movies/presentation/providers/movies/movie_info_provider.dart';
+import 'package:movies/presentation/providers/storage/local_storage_provider.dart';
 
 class MovieScreen extends ConsumerStatefulWidget {
   final String movieId;
@@ -180,17 +181,21 @@ class _ActorsByMovie extends ConsumerWidget {
   }
 }
 
-class _CustomSliverAppBar extends StatelessWidget {
+class _CustomSliverAppBar extends ConsumerWidget {
   final Movie movie;
 
   const _CustomSliverAppBar({required this.movie});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, ref) {
     final size = MediaQuery.of(context).size;
     return SliverAppBar(
       actions: [
-        IconButton(onPressed: () {}, icon: Icon(Icons.favorite_border))
+        IconButton(
+            onPressed: () {
+              ref.watch(localStorageRepositoryProvider).toggleFavorite(movie);
+            },
+            icon: const Icon(Icons.favorite_border))
       ],
       backgroundColor: Colors.black,
       expandedHeight: size.height * 0.7,
