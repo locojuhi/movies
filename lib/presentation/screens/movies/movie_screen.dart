@@ -189,6 +189,9 @@ class _CustomSliverAppBar extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return SliverAppBar(
+      actions: [
+        IconButton(onPressed: () {}, icon: Icon(Icons.favorite_border))
+      ],
       backgroundColor: Colors.black,
       expandedHeight: size.height * 0.7,
       foregroundColor: Colors.white,
@@ -234,6 +237,21 @@ class _CustomSliverAppBar extends StatelessWidget {
                     stops: [0.0, 0.3],
                     colors: [
                       Colors.black87,
+                      Colors.transparent,
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox.expand(
+              child: DecoratedBox(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topRight,
+                    end: Alignment.bottomLeft,
+                    stops: [0.0, 0.3],
+                    colors: [
+                      Colors.black54,
                       Colors.transparent,
                     ],
                   ),
