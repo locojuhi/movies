@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:movies/domain/entities/movie.dart';
 import 'package:movies/presentation/providers/actors/actors_by_movie_provider.dart';
 import 'package:movies/presentation/providers/movies/movie_info_provider.dart';
+import 'package:movies/presentation/providers/storage/favorite_movies_providers.dart';
 import 'package:movies/presentation/providers/storage/local_storage_provider.dart';
 
 class MovieScreen extends ConsumerStatefulWidget {
@@ -201,8 +202,12 @@ class _CustomSliverAppBar extends ConsumerWidget {
     return SliverAppBar(
       actions: [
         IconButton(
-          onPressed: () {
-            ref.watch(localStorageRepositoryProvider).toggleFavorite(movie);
+          onPressed: () async {
+            await ref
+                .read(favoriteMoviesProvider.notifier)
+                .toggleFavorite(movie);
+
+            // ref.read(localStorageRepositoryProvider).toggleFavorite(movie);
             ref.invalidate(isFavoriteProvider(movie.id));
           },
           icon: isFavoriteFuture.when(
